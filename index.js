@@ -4,6 +4,7 @@ var listeningport = process.env.PORT || 3000;
 
 const express = require('express');
 const bodyparser = require('body-parser');
+//const { WebhookClient } = require('dialogflow-fulfillment');
 
 const app = express();
 
@@ -15,21 +16,17 @@ app.listen(listeningport, function () {
 
 })
 
-app.post('/events', (req,res) => {
+app.post('/events', function (req,res)  {
     console.log('Spacebooking being called by DialogFlow');
-    //var string = JSON.stringify(req);
-    //var objectValue = JSON.parse(string);
 
-    console.log(req.body.queryresult);
-    switch (req.body.result){
+    console.log(req.body);
+    switch (req.body.queryResult.action){
         case 'BookSpace' :
-            console.log('Booking space...');
+            console.log('Booking space ' + req.body.queryResult.outputContexts[0].parameters.spacename);
             return res.json({
-                displayText: 'Sure, what is your Q-Number?',
+                displayText: 'Done, '+ req.body.queryResult.outputContexts[0].parameters.spacename +' is booked',
                 source: 'From Api'
             })
-            break;
-        case 'UserID' :
             break;
 
     }
