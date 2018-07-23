@@ -24,7 +24,7 @@ app.post('/events', function (req,res)  {
         case 'BookSpace' :
             console.log('Booking space ' + req.body.queryResult.outputContexts[0].parameters.spacename);
             return res.json({
-                displayText: 'Done, '+ req.body.queryResult.outputContexts[0].parameters.spacename +' is booked',
+                fulfillmentText: 'Done, '+ req.body.queryResult.outputContexts[0].parameters.spacename +' is booked',
                 source: 'From Api'
             })
             break;
